@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 import { fetchPackageById, submitReview, fetchPackageReviews } from '../utils/packageApi';
 import { formatCurrency } from '../utils/currency';
-import { generateManagementPDF } from '../utils/managementPdfBridge';
+// import { generateManagementPDF } from '../utils/managementPdfBridge';
 import { useAuth } from '../context/AuthContext';
 import { submitBookingRequest } from '../utils/bookingApi';
 
@@ -1123,4 +1123,5 @@ export default function PackageDetails() {
       )}
     </div>
   );
+
 }
