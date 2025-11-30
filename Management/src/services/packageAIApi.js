@@ -50,7 +50,7 @@ const packageAIApi = {
    */
   downloadPDF: async (packageId) => {
     const response = await fetch(
-      `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/v1/packages/${packageId}/ai-pdf`,
+      `${process.env.REACT_APP_API_URL || 'https://trip-sky-way-render-1j8d.vercel.app'}/api/v1/packages/${packageId}/ai-pdf`,
       {
         method: 'GET',
         headers: {
@@ -76,4 +76,5 @@ const packageAIApi = {
 };
 
 export default packageAIApi;
+
 
