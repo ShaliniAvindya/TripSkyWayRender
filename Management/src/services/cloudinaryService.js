@@ -6,7 +6,7 @@
 import Swal from 'sweetalert2';
 
 // API Configuration
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://trip-sky-way-render-1j8d.vercel.app/api/v1';
 
 /**
  * Get authentication token from localStorage
@@ -385,3 +385,4 @@ export default {
   getOptimizedImageUrl,
   VALIDATION_MESSAGES,
 };
+
