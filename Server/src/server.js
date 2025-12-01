@@ -3,6 +3,8 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
+import pdfRoutes from "./routes/pdfRoutes.js";
+
 
 import cors from 'cors';
 import helmet from 'helmet';
@@ -122,6 +124,8 @@ app.use(`/api/${API_VERSION}/billing/quotations`, quotationRoutes);
 app.use(`/api/${API_VERSION}/billing/receipts`, paymentReceiptRoutes);
 app.use(`/api/${API_VERSION}/billing/credit-notes`, creditNoteRoutes);
 app.use(`/api/${API_VERSION}/billing`, billingRoutes);
+app.use(`/api/${API_VERSION}/pdf`, pdfRoutes);
+
 
 // Error handling
 app.use(notFound);
@@ -159,3 +163,4 @@ export default async function handler(req, res) {
     res.status(500).json({ status: 'error', message: err.message });
   }
 }
+
