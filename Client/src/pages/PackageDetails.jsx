@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 import { fetchPackageById, submitReview, fetchPackageReviews } from '../utils/packageApi';
 import { formatCurrency } from '../utils/currency';
-import { generateManagementPDF } from '../utils/managementPdfBridge';
+// import { generateManagementPDF } from '../utils/managementPdfBridge';
 import { useAuth } from '../context/AuthContext';
 import { submitBookingRequest } from '../utils/bookingApi';
 
@@ -216,18 +216,18 @@ export default function PackageDetails() {
     }
   };
 
-  const downloadPDF = async () => {
-    if (!pkg) return;
-    setIsDownloading(true);
-    try {
-      await generateManagementPDF(pkg.raw || pkg);
-    } catch (error) {
-      console.error('Failed to generate itinerary PDF via management service.', error);
-      window.alert('Unable to generate the itinerary PDF right now. Please try again later.');
-    } finally {
-      setIsDownloading(false);
-    }
-  };
+  // const downloadPDF = async () => {
+  //   if (!pkg) return;
+  //   setIsDownloading(true);
+  //   try {
+  //     await generateManagementPDF(pkg.raw || pkg);
+  //   } catch (error) {
+  //     console.error('Failed to generate itinerary PDF via management service.', error);
+  //     window.alert('Unable to generate the itinerary PDF right now. Please try again later.');
+  //   } finally {
+  //     setIsDownloading(false);
+  //   }
+  // };
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
@@ -1289,4 +1289,5 @@ export default function PackageDetails() {
     </div>
   );
 }
+
 
