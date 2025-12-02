@@ -6,23 +6,34 @@ import { dirname, resolve } from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-export default defineConfig({
-  plugins: [react()],
-  resolve: {
-    alias: {
-      "@management": resolve(__dirname, "../Management/src"),
+export default defineConfig(({ command }) => {
+  const isDev = command === 'serve';
+
+  return {
+    plugins: [react()],
+    resolve: {
+      alias: isDev
+        ? {
+            "@management": resolve(__dirname, "../Management/src"),
+          }
+        : {},
     },
-  },
-  server: {
-    open: true,
-    proxy: {
-      // "/api": "http://localhost:5001/api",
+    server: {
+      open: true,
+      proxy: {
+        // "/api": "http://localhost:5001/api",
+      },
+      fs: {
+        allow: [resolve(__dirname, "..")],
+      },
+      hmr: {
+        overlay: false,
+      },
     },
-    fs: {
-      allow: [resolve(__dirname, "..")],
+    build: {
+      rollupOptions: {
+        external: ['jspdf'],
+      },
     },
-    hmr: {
-      overlay: false,
-    },
-  },
+  };
 });
