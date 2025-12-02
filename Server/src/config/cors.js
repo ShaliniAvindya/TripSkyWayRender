@@ -20,4 +20,6 @@ export default {
   optionsSuccessStatus: 200,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+   exposedHeaders: ['Content-Disposition', 'Content-Type', 'Authorization'],
 };
+
