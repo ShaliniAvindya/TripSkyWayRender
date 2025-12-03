@@ -1,4 +1,4 @@
-import { generateAndDownloadPDF } from '../pdf/pdfService';
+import * as pdfServiceModule from '../pdf/pdfService';
 
-export const generateManagementPDF = generateAndDownloadPDF;
+export const generateManagementPDF = pdfServiceModule.generateAndDownloadPDF;
 
