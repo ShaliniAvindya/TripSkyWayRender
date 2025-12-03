@@ -33,7 +33,7 @@ cd Server
 Install dependencies:
 
 bash
-Copy code
+Copy code 
 npm install
 Start the server:
 
