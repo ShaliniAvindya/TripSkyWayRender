@@ -13,18 +13,6 @@ export default defineConfig({
       "@management": resolve(__dirname, "../Management/src"),
     },
   },
-  build: {
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: false,
-        unsafe: false,
-      },
-      mangle: {
-        reserved: ['generateManagementPDF', 'generateAndDownloadPDF'],
-      },
-    },
-  },
   server: {
     open: true,
     proxy: {
