@@ -6,34 +6,35 @@ import { dirname, resolve } from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-export default defineConfig(({ command }) => {
-  const isDev = command === 'serve';
-
-  return {
-    plugins: [react()],
-    resolve: {
-      alias: isDev
-        ? {
-            "@management": resolve(__dirname, "../Management/src"),
-          }
-        : {},
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: {
+      "@management": resolve(__dirname, "../Management/src"),
     },
-    server: {
-      open: true,
-      proxy: {
-        // "/api": "http://localhost:5001/api",
+  },
+  build: {
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: false,
+        unsafe: false,
       },
-      fs: {
-        allow: [resolve(__dirname, "..")],
-      },
-      hmr: {
-        overlay: false,
+      mangle: {
+        reserved: ['generateManagementPDF', 'generateAndDownloadPDF'],
       },
     },
-    build: {
-      rollupOptions: {
-        external: ['jspdf'],
-      },
+  },
+  server: {
+    open: true,
+    proxy: {
+      // "/api": "http://localhost:5001/api",
     },
-  };
+    fs: {
+      allow: [resolve(__dirname, "..")],
+    },
+    hmr: {
+      overlay: false,
+    },
+  },
 });
