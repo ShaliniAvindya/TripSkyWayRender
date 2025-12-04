@@ -34,10 +34,12 @@ const sendTokenResponse = (user, statusCode, res, message = 'Success') => {
         name: user.name,
         email: user.email,
         role: user.role,
+        isSuperAdmin: user.isSuperAdmin || false, // FIXED: Include isSuperAdmin flag for role verification
         phone: user.phone,
         avatar: user.avatar,
         isEmailVerified: user.isEmailVerified,
         mustChangePassword: user.mustChangePassword,
+        permissions: user.permissions || [], // Include permissions array for granular permission checks
       },
     },
   });
