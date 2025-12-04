@@ -78,8 +78,8 @@ const userSchema = new mongoose.Schema(
             'manage_admins',
             'view_reports',
             'manage_billing',
-            'system_settings',
-            'audit_log',
+            'manage_leads',
+            'manage_packages',
           ];
           return permissionsArray.every((perm) => validPermissions.includes(perm));
         },
@@ -179,46 +179,43 @@ const userSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  },
-);
-
-// Normalize role: convert 'superAdmin' to 'admin' (legacy support)
-userSchema.pre('save', function normalizeRole(next) {
-  if (this.role === 'superAdmin') {
-    this.role = 'admin';
   }
-  next();
-});
+);
 
 // Hash password before saving
 userSchema.pre('save', async function hashPassword(next) {
   if (!this.isModified('password')) {
-    next();
+    return next();
   }
 
   const salt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_ROUNDS, 10) || 12);
   this.password = await bcrypt.hash(this.password, salt);
+  next();
 });
 
 // Ensure consistency between role and isSuperAdmin fields
+// FIXED: Only auto-adjust on EXPLICIT field modifications to prevent accidental downgrades
 userSchema.pre('save', function ensureRoleConsistency(next) {
-  // If role is changed away from superAdmin, reset isSuperAdmin flag
+  // ONLY if role is explicitly being changed FROM superAdmin, reset isSuperAdmin
+  // This prevents accidental role changes from affecting the superAdmin flag
   if (this.isModified('role') && this.role !== 'superAdmin' && this.isSuperAdmin) {
     this.isSuperAdmin = false;
-    // Also clear permissions if not an admin
+    // Clear permissions only for non-admin roles
     if (this.role !== 'admin') {
       this.permissions = [];
     }
   }
   
-  // If trying to set isSuperAdmin true, ensure role is superAdmin
-  if (this.isModified('isSuperAdmin') && this.isSuperAdmin && this.role !== 'superAdmin') {
-    this.role = 'superAdmin';
+  // If role is changed to superAdmin but isSuperAdmin is not explicitly set, set it
+  if (this.isModified('role') && this.role === 'superAdmin' && !this.isSuperAdmin) {
+    this.isSuperAdmin = true;
   }
   
-  // If demoting from superAdmin to admin, ensure canBeDeleted is true
-  if (this.isModified('role') && this.role !== 'superAdmin' && !this.isModified('canBeDeleted')) {
-    this.canBeDeleted = true;
+  // If demoting from superAdmin to non-superAdmin, ensure canBeDeleted is true
+  if (this.isModified('role') && this.role !== 'superAdmin') {
+    if (!this.isModified('canBeDeleted')) {
+      this.canBeDeleted = true;
+    }
   }
   
   next();
