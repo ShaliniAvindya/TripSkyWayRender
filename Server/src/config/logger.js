@@ -22,40 +22,52 @@ const levels = {
   debug: 4,
 };
 
-// Create logger instance
+// 🟢 Create logger instance
 const logger = winston.createLogger({
   levels,
   format: logFormat,
-  transports: [
-    // Error logs
+  transports: [],
+});
+
+// ---------------------------------------------------------------
+// 🔥 VERCEL FIX
+// Vercel filesystem is read-only → DO NOT use File transports.
+// We detect Vercel using process.env.VERCEL or CI, etc.
+// ---------------------------------------------------------------
+
+const isVercel = process.env.VERCEL === '1' || process.env.VERCEL_ENV;
+
+// 🟡 Local development → allow file logs
+if (!isVercel) {
+  logger.add(
     new winston.transports.File({
       filename: path.join(dirname, '../../logs/error.log'),
       level: 'error',
-      maxsize: 5242880, // 5MB
+      maxsize: 5242880,
       maxFiles: 5,
-    }),
-    // Combined logs
+    })
+  );
+
+  logger.add(
     new winston.transports.File({
       filename: path.join(dirname, '../../logs/combined.log'),
-      maxsize: 5242880, // 5MB
+      maxsize: 5242880,
       maxFiles: 5,
-    }),
-  ],
-});
-
-// Add console transport in development
-if (process.env.NODE_ENV !== 'production') {
-  logger.add(
-    new winston.transports.Console({
-      format: winston.format.combine(
-        winston.format.colorize(),
-        winston.format.simple(),
-      ),
-    }),
+    })
   );
 }
 
-// Stream for Morgan HTTP logger
+// 🟢 Console transport ALWAYS enabled (required on Vercel)
+logger.add(
+  new winston.transports.Console({
+    format: winston.format.combine(
+      winston.format.colorize(),
+      winston.format.simple(),
+    ),
+  })
+);
+
+// Morgan HTTP logger stream
 logger.stream = {
   write: (message) => logger.http(message.trim()),
 };
