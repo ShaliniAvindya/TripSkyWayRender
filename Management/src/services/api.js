@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://trip-sky-way-render-1j8d.vercel.app/api/v1';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://trip-sky-way-render-two.vercel.app/api/v1';
 
 class ApiService {
   constructor() {
@@ -529,5 +529,6 @@ export const customizedPackageAPI = {
 };
 
 export default new ApiService();
+
 
 
