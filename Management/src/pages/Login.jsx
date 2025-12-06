@@ -82,7 +82,7 @@ export default function Login() {
       <div className="w-full max-w-md">
         {/* Logo/Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">Trip Sky Way</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">Lush Travel Cloud</h1>
           <p className="text-gray-600">Management Portal</p>
         </div>
 
@@ -218,3 +218,4 @@ export default function Login() {
     </div>
   );
 }
+
