@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [token, setToken] = useState(null);
 
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
+  const API_URL = import.meta.env.VITE_API_URL || 'https://trip-sky-way-render-two.vercel.app/api/v1';
 
   // Initialize auth from localStorage
   useEffect(() => {
@@ -193,3 +193,4 @@ export const useAuth = () => {
   }
   return context;
 };
+
