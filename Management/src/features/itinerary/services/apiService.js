@@ -4,7 +4,7 @@
  * Follows best practices for API integration
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://trip-sky-way-render-two.vercel.app/api/v1';
 
 /**
  * Enhanced request wrapper with error handling and logging
@@ -246,3 +246,4 @@ class ApiService {
 }
 
 export default ApiService;
+
