@@ -84,7 +84,7 @@ const Sidebar = () => {
     <div className={`${sidebarOpen ? "w-64" : "w-20"} h-full bg-gradient-to-b from-slate-900 to-slate-800 text-white transition-all duration-300 flex flex-col shadow-xl`}>
       <div className="p-6 border-b border-slate-700 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <img src="/logo.png" alt="Trip Sky Way Logo" className="w-10 h-10 object-contain flex-shrink-0" />
+          <img src="/LushWare Logo.png" alt="Trip Sky Way Logo" className="w-10 h-10 object-contain flex-shrink-0" />
           {sidebarOpen && (
             <div>
               <h1 className="text-lg font-bold">Lush Travel Cloud</h1>
@@ -151,4 +151,5 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+
 
