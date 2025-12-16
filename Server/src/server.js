@@ -38,6 +38,8 @@ import notificationRoutes from './routes/notification.routes.js';
 import dashboardRoutes from './routes/dashboard.routes.js';
 import uploadRoutes from './routes/upload.routes.js';
 import analyticsRoutes from './routes/analytics.routes.js';
+import careerRoutes from './routes/career.routes.js';
+import vacancyRoutes from './routes/vacancy.routes.js';
 
 // Billing
 import quotationRoutes from './routes/quotation.routes.js';
@@ -122,6 +124,8 @@ app.use(`/api/${API_VERSION}/billing/quotations`, quotationRoutes);
 app.use(`/api/${API_VERSION}/billing/receipts`, paymentReceiptRoutes);
 app.use(`/api/${API_VERSION}/billing/credit-notes`, creditNoteRoutes);
 app.use(`/api/${API_VERSION}/billing`, billingRoutes);
+app.use(`/api/${API_VERSION}/careers`, careerRoutes);
+app.use(`/api/${API_VERSION}/vacancies`, vacancyRoutes);
 
 // Error handling
 app.use(notFound);
@@ -159,4 +163,5 @@ export default async function handler(req, res) {
     res.status(500).json({ status: 'error', message: err.message });
   }
 }
+
 
