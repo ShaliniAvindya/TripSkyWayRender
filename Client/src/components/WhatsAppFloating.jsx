@@ -4,7 +4,7 @@ const WhatsappFloatingButton = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   
-  const phoneNumber = '+919128446597';
+  const phoneNumber = '+919876543210';
   const message = encodeURIComponent("Hello! I'm interested in your holiday packages.");
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
 
